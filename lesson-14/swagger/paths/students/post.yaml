@@ -1,0 +1,63 @@
+tags:
+  - Students
+summary: Create student
+operationId: createStudent
+description: 'Create a student'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - year
+          - gender
+          - email
+        properties:
+          name:
+            description: "Student's name"
+            type: string
+            example: 'John Doe'
+          gender:
+            description: "Student's gender"
+            type: string
+            enum: ['male', 'female']
+            example: male
+          email:
+            description: "Student's email"
+            type: string
+            example: 'johndoe@gmail.com'
+          year:
+            description: "Student's birth year"
+            type: number
+            example: 2000
+          onDuty:
+            description: 'Whether is student on duty'
+            type: boolean
+            example: false
+            default: false
+responses:
+  '201':
+    description: Creates a student
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a student!
+            data:
+              type: object
+              $ref: ../../components/schemas/student.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
